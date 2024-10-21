@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<ErrorMessage> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         if (exception.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
-
+            System.out.println(exception.getMessage());
             return createResponseEntity(ErrorType.USERNAME_AND_EMAIL_ERROR, List.of("Kullanıcı adı veya email zaten mevcut."));
         }
         return createResponseEntity(ErrorType.INTERNAL_SERVER_ERROR, null);
