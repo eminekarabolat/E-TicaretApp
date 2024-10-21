@@ -1,0 +1,45 @@
+package org.example.eticaretapp.controller;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import static org.example.eticaretapp.constants.RestApis.*;
+
+import org.example.eticaretapp.dto.request.AuthRequestDto;
+import org.example.eticaretapp.dto.request.RegisterRequestDto;
+import org.example.eticaretapp.dto.response.BaseResponse;
+import org.example.eticaretapp.service.AuthService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(AUTH)
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthService registerService;
+
+
+    @PostMapping(REGISTER)
+    public ResponseEntity<BaseResponse<Boolean>> register(@RequestBody @Valid RegisterRequestDto dto){
+        registerService.register(dto);
+        return ResponseEntity.ok(BaseResponse.<Boolean>builder()
+                        .success(true)
+                        .message("Kayıt işlemi başarılı")
+                        .code(200)
+                        .data(true)
+                .build());
+    }
+
+    @PostMapping(LOGIN)
+    public ResponseEntity<BaseResponse<String>> login(@RequestBody @Valid AuthRequestDto loginRequestDto) {
+        return ResponseEntity.ok(BaseResponse.<String>builder()
+                .success(true)
+                .message("Giriş başarılı...")
+                .code(200)
+                .data(registerService.login(loginRequestDto))
+                .build());
+    }
+
+}
