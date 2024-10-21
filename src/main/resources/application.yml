@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/eticaretdb
-    username: postgres
-    password: root
+    url: ${ETICARET_URL}
+    username: ${ETICARET_USERNAME}
+    password: ${ETICARET_PASSWORD}
   jpa:
     show-sql: true
     hibernate:

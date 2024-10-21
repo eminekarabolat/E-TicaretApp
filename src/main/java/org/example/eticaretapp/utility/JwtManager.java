@@ -14,9 +14,10 @@ import java.util.Optional;
 @Service
 public class JwtManager {
 
-
-    private String SecretKey = "eiUdXTqgD7ppxDO91J4yI1gjWpD9KN";
-    private String Issuer = "ETicaretApp";
+    @Value("${ETICARET_SECRET_KEY}")
+    private String SecretKey;
+    @Value("${ETICARET_ISSUER}")
+    private String Issuer;
 
     private final Long ExDate = 1000L * 60 * 10; //10 dk sonra iptal olsun.
 
