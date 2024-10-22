@@ -21,7 +21,10 @@ import java.util.Optional;
 public class AuthService {
     @Autowired
     private UserRepository userRepository;
-
+    
+    @Autowired
+    private EncryptionService encryptionService;
+    
     @Autowired
     private JwtManager jwtManager;
 
@@ -31,7 +34,7 @@ public class AuthService {
     public void register(@Valid RegisterRequestDto dto){
         Auth login = Auth.builder()
                 .username(dto.username())
-                .password(dto.password())
+                .password(encryptionService.encryptPassword(dto.password()))
                 .role(dto.userRole())
                 .build();
         authRepository.save(login);
@@ -42,11 +45,17 @@ public class AuthService {
     }
 
     public String login(@Valid AuthRequestDto authRequestDto) {
-        Optional<Auth> optionalAuthUser = authRepository.findOptionalByUsernameAndPassword(authRequestDto.username(), authRequestDto.password());
-        if(optionalAuthUser.isEmpty())
+        Optional<Auth> optionalAuthUser = authRepository.findOptionalByUsername(authRequestDto.username());
+        if(optionalAuthUser.isEmpty() ||
+                !encryptionService.checkPassword(
+                        authRequestDto.password(), optionalAuthUser.get().getPassword()))
             throw new ETicaretException(ErrorType.INVALID_USERNAME_OR_PASSWORD);
         Optional<User> optionalUser = userRepository.findOptionalByAuthId(optionalAuthUser.get().getId());
         String token = jwtManager.createToken(optionalUser.get().getId());
         return token;
+    }
+    
+    public Optional<Auth> findById(Long id){
+        return authRepository.findById(id);
     }
 }

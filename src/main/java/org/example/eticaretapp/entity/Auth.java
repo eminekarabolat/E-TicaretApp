@@ -15,8 +15,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbllogin")
-public class Auth extends BaseEntity implements Serializable {
+@Table(name = "tblauth")
+public class Auth extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

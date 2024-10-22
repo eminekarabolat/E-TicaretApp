@@ -2,6 +2,10 @@ server:
   port: 9090
 
 spring:
+  security:
+    user:
+      name: ${ETICARET_SECURITY_USERNAME}
+      password: ${ETICARET_SECURITY_PASSWORD}
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${ETICARET_URL}
