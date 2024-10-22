@@ -13,8 +13,11 @@ public enum ErrorType {
     INVALID_USERNAME_OR_PASSWORD(5002, "Kullanıcı adı ya da şifre hatalıdır.", HttpStatus.BAD_REQUEST),
     INVALID_TOKEN(5003, "Geçersiz token bilgisi", HttpStatus.BAD_REQUEST),
     NOTFOUND_USER(6000,"Kullanıcı bulunamadı",HttpStatus.NOT_FOUND),
-    USERNAME_AND_EMAIL_ERROR(5004,"Kullanıcı adı ya da mail adresi daha önce kaydedilmiş. Lütfen tekrar deneyiniz...", HttpStatus.BAD_REQUEST);
-
+    NOTFOUND_PRODUCT(7001, "girilen id ile eslesen urun bulunamadi", HttpStatus.BAD_REQUEST),
+    SELLER_PRODUCT_ERROR(7002, "girilen urun, girilen satici tarafindan satilmiyor", HttpStatus.BAD_REQUEST),
+    USERNAME_AND_EMAIL_ERROR(5004,"Kullanıcı adı ya da mail adresi daha önce kaydedilmiş. Lütfen tekrar deneyiniz...", HttpStatus.BAD_REQUEST)
+    ,ACCESS_DENIED(6006, "admin olarak kayit yapamazsiniz!", HttpStatus.BAD_REQUEST)
+    ;
     int code;
     String message;
     HttpStatus httpStatus;
