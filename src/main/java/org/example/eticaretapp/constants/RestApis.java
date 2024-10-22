@@ -23,4 +23,7 @@ public class RestApis {
     public static final String DELETE_PRODUCT = "/delete-product";
     public static final String UPDATE_PRODUCT = "/update-product";
     public static final String ADDIMAGE = "/add-image";
+    public static final String FINDALL = "/find-all";
+    public static final String UPLOADPHOTO = "/upload-photo";
+
 }

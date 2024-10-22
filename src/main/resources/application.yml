@@ -1,17 +1,33 @@
 server:
-  port: 9090
+  port: 8080
 
 spring:
   security:
     user:
       name: user
       password: 1234
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 8MB
+      max-request-size: 8MB
+
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${ETICARET_URL}
-    username: ${ETICARET_USERNAME}
-    password: ${ETICARET_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/eticaretdb
+    username: postgres
+    password: root
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+
+cloudinary:
+  cloud_name: dhsdmojed
+  api_key: 887528387778641
+  api_secret: 0rSfOC2Rjjtf0qCHBKM1ucj9B-E
+
+
+
+
+

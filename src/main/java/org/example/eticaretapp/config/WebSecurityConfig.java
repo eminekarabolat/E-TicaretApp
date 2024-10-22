@@ -8,8 +8,7 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 @Configuration
 public class WebSecurityConfig {
-	
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// http.csrf().disable().cors().disable(); -> this is deprecated, so I used 2 lines below
