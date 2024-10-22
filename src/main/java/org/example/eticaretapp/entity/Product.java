@@ -4,16 +4,17 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.eticaretapp.entity.enums.Category;
 import org.example.eticaretapp.entity.enums.Status;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Data
 @Entity
 @Table(name = "tblproduct")
-public class Product {
+public class Product extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
@@ -26,7 +27,7 @@ public class Product {
 	String description;
 	Double price;
 	Integer stockQuantity;
-	String sku; // uuid yapıver
+	String sku;
 	Status status;
 	Float weight;
 }

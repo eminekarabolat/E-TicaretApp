@@ -5,6 +5,7 @@ import org.example.eticaretapp.dto.request.AuthRequestDto;
 import org.example.eticaretapp.dto.request.RegisterRequestDto;
 import org.example.eticaretapp.entity.Auth;
 import org.example.eticaretapp.entity.User;
+import org.example.eticaretapp.entity.enums.Role;
 import org.example.eticaretapp.exception.ETicaretException;
 import org.example.eticaretapp.exception.ErrorType;
 import org.example.eticaretapp.mapper.UserMapper;
@@ -32,6 +33,7 @@ public class AuthService {
     private AuthRepository authRepository;
 
     public void register(@Valid RegisterRequestDto dto){
+        if (dto.userRole().equals(Role.ADMIN)) throw new ETicaretException(ErrorType.ACCESS_DENIED);
         Auth login = Auth.builder()
                 .username(dto.username())
                 .password(encryptionService.encryptPassword(dto.password()))

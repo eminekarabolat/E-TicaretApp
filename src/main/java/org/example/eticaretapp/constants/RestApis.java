@@ -19,4 +19,5 @@ public class RestApis {
     public static final String GETPROFILE = "/getprofile";
     public static final String LIST_MY_PRODUCTS = "/list-my-products";
     public static final String ADD_PRODUCT = "/add-product";
+    public static final String DELETE_PRODUCT = "/delete-product";
 }

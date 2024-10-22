@@ -22,10 +22,10 @@ public class WebSecurityConfig {
 		                                                        "/webjars/**",  // Allow access to webjars (Swagger uses it for CSS/JS)
 		                                                        "/swagger-ui.html"  // Allow access to main Swagger page).permitAll()
 		                                       ).permitAll()
-		                                       /*.requestMatchers("/v1/dev/auth/dologin", "/v1/dev/auth" +
+		                                       .requestMatchers("/v1/dev/auth/dologin", "/v1/dev/auth" +
 				                                                                                                                    "/register",
 		                                                                     "/product", "/auth/verify", "/error")
-		                                       .permitAll().anyRequest().permitAll()*/
+		                                       .permitAll().anyRequest().permitAll()
 		    );
 		return http.build();
 		
