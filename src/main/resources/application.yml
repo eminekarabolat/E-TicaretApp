@@ -4,8 +4,8 @@ server:
 spring:
   security:
     user:
-      name: ${ETICARET_SECURITY_USERNAME}
-      password: ${ETICARET_SECURITY_PASSWORD}
+      name: user
+      password: 1234
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${ETICARET_URL}
@@ -14,4 +14,4 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create

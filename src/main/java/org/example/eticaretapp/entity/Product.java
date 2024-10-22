@@ -8,6 +8,8 @@ import lombok.experimental.SuperBuilder;
 import org.example.eticaretapp.entity.enums.Category;
 import org.example.eticaretapp.entity.enums.Status;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -19,7 +21,6 @@ public class Product extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	Long sellerId;
-	String imageUrl;
 	@Enumerated(EnumType.STRING)
 	Category category;
 	String brand;
@@ -30,4 +31,5 @@ public class Product extends BaseEntity {
 	String sku;
 	Status status;
 	Float weight;
+	
 }
