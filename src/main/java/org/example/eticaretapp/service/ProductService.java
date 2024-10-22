@@ -1,13 +1,18 @@
 package org.example.eticaretapp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.eticaretapp.dto.request.AddImageMyProductRequestDto;
 import org.example.eticaretapp.dto.request.AddProductDto;
 import org.example.eticaretapp.dto.request.DeleteProductDto;
+import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
+import org.example.eticaretapp.entity.Image;
 import org.example.eticaretapp.entity.Product;
 import org.example.eticaretapp.entity.enums.State;
 import org.example.eticaretapp.exception.ETicaretException;
 import org.example.eticaretapp.exception.ErrorType;
+import org.example.eticaretapp.mapper.ImageMapper;
 import org.example.eticaretapp.mapper.ProductMapper;
+import org.example.eticaretapp.repository.ImageRepository;
 import org.example.eticaretapp.repository.ProductRepository;
 import org.example.eticaretapp.utility.JwtManager;
 import org.hibernate.validator.internal.constraintvalidators.hv.UUIDValidator;
@@ -22,9 +27,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductService {
 	private final ProductRepository productRepository;
-	private final AuthService authService;
 	private final JwtManager jwtManager;
-	private final RepositoryMetricsAutoConfiguration repositoryMetricsAutoConfiguration;
+	private final ImageService imageService;
 	
 	public List<Product> listMyProducts(String token) {
 		Long sellerId = validateToken(token);
@@ -46,6 +50,31 @@ public class ProductService {
 		if(!product.getSellerId().equals(sellerId)) throw new ETicaretException(ErrorType.SELLER_PRODUCT_ERROR);
 		product.setState(State.DELETED);
 		productRepository.save(product);
+	}
+	
+	public void updateMyProduct(UpdateProductRequestDto dto){
+		Long sellerId = validateToken(dto.token());
+		Optional<Product> optProduct = productRepository.findById(dto.productId());
+		if (optProduct.isEmpty()) throw new ETicaretException(ErrorType.NOTFOUND_PRODUCT);
+		Product product = optProduct.get();
+		if(!product.getSellerId().equals(sellerId)) throw new ETicaretException(ErrorType.SELLER_PRODUCT_ERROR);
+		 product.setName(dto.name());
+		 product.setDescription(dto.description());
+		 product.setPrice(dto.price());
+		 product.setStockQuantity(dto.stockQuantity());
+		 product.setStatus(dto.status());
+		productRepository.save(product);
+	}
+	
+	public void  addImageMyProduct(AddImageMyProductRequestDto dto){
+		Long sellerId = validateToken(dto.token());
+		Optional<Product> optProduct = productRepository.findById(dto.productId());
+		if (optProduct.isEmpty()) throw new ETicaretException(ErrorType.NOTFOUND_PRODUCT);
+		Product product = optProduct.get();
+		if(!product.getSellerId().equals(sellerId)) throw new ETicaretException(ErrorType.SELLER_PRODUCT_ERROR);
+		
+		imageService.save(dto);
+		
 	}
 	
 	public Long validateToken(String token) {

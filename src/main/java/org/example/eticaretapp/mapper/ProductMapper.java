@@ -1,6 +1,7 @@
 package org.example.eticaretapp.mapper;
 
 import org.example.eticaretapp.dto.request.AddProductDto;
+import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
 import org.example.eticaretapp.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,4 +14,5 @@ public interface ProductMapper {
 	
 	// TODO @Mapping(target = "sku", expression = "java(UUID.randomUUID().toString())")
 	Product fromAddProductDto(AddProductDto dto, Long sellerId, String sku);
+	
 }

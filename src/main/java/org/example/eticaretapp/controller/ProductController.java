@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductDto;
 import org.example.eticaretapp.dto.request.DeleteProductDto;
+import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
 import org.example.eticaretapp.dto.response.BaseResponse;
 import org.example.eticaretapp.entity.Product;
 import org.example.eticaretapp.service.ProductService;
@@ -36,5 +37,10 @@ public class ProductController {
 		productService.deleteMyProduct(dto);
 		return ResponseEntity.ok(BaseResponse.getSuccess(true, "urun sil basari"));
 		
+	}
+	@PutMapping(UPDATE_PRODUCT)
+	public ResponseEntity<BaseResponse<Boolean>> updateMyProduct(@RequestBody @Valid  UpdateProductRequestDto dto){
+		productService.updateMyProduct(dto);
+		return ResponseEntity.ok(BaseResponse.getSuccess(true, "urun güncelleme başarılı."));
 	}
 }

@@ -12,6 +12,7 @@ public class RestApis {
     public static final String USER = ROOT + "/user";
     public static final String AUTH = ROOT + "/auth";
     public static final String PRODUCT = ROOT + "/product";
+    public static final String IMAGE = ROOT + "/image";
 
 
     public static final String REGISTER = "/register";
@@ -20,4 +21,6 @@ public class RestApis {
     public static final String LIST_MY_PRODUCTS = "/list-my-products";
     public static final String ADD_PRODUCT = "/add-product";
     public static final String DELETE_PRODUCT = "/delete-product";
+    public static final String UPDATE_PRODUCT = "/update-product";
+    public static final String ADDIMAGE = "/add-image";
 }
