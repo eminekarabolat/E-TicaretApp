@@ -18,7 +18,7 @@ public class JwtManager {
     private String SecretKey = "Kgz6$w!PT!eCQGGb";
     private String Issuer = "ETicaretApp";
 
-    private final Long ExDate = 1000L * 60 * 10; //10 dk sonra iptal olsun.
+    private final Long ExDate = 1000L * 60 * 60; //60 dk sonra iptal olsun.
 
     public String createToken(Long authId) {
         Date createdDate = new Date(System.currentTimeMillis());

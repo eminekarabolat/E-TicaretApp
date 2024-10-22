@@ -9,6 +9,7 @@ import org.example.eticaretapp.entity.enums.Category;
 import org.example.eticaretapp.entity.enums.Status;
 
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,8 +29,11 @@ public class Product extends BaseEntity {
 	String description;
 	Double price;
 	Integer stockQuantity;
-	String sku;
-	Status status;
-	Float weight;
+	@Builder.Default
+	String sku = UUID.randomUUID().toString();
+
+	@Builder.Default
+	Status status = Status.ACTIVE;
+
 	
 }

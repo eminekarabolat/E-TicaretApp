@@ -7,18 +7,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-@Data
 @Entity
-@Table(name = "tblimage")
-public class Image extends BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	Long productId;
-	String url;
-	String title;
-	
+@Table(name = "tblorderdetails")
+public class OrderDetails extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    Long orderId;
+    Long productId;
+    Integer quantity;
+    Double price;
 }
