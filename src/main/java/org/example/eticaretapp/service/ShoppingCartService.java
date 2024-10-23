@@ -3,6 +3,7 @@ package org.example.eticaretapp.service;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductToShoppingCartDto;
 import org.example.eticaretapp.entity.CartDetails;
+import org.example.eticaretapp.entity.Product;
 import org.example.eticaretapp.entity.ShoppingCart;
 import org.example.eticaretapp.exception.ETicaretException;
 import org.example.eticaretapp.exception.ErrorType;
@@ -10,6 +11,8 @@ import org.example.eticaretapp.repository.ShoppingCartRepository;
 import org.example.eticaretapp.utility.JwtManager;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,25 +20,66 @@ import java.util.Optional;
 public class ShoppingCartService {
 
     private final ShoppingCartRepository shoppingCartRepository;
-    private JwtManager jwtManager;
+    private final CartDetailService cartDetailService;
+    private final JwtManager jwtManager;
+    private final ProductService productService;
 
 
     public void addProductToShoppingCart(AddProductToShoppingCartDto dto) {
+        ShoppingCart shoppingCart;
         Optional<Long> userIdOpt = jwtManager.validateToken(dto.token());
         if(userIdOpt.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
 
-        Optional<ShoppingCart> shoppingCartOptional = shoppingCartRepository.findByUserIdAndDone(userIdOpt.get(), false);
+        Optional<Product> productOptional = productService.findById(dto.productId());
+        if(productOptional.isEmpty()) throw new ETicaretException(ErrorType.NOTFOUND_PRODUCT);
+
+        Product product = productOptional.get();
+
+        Optional<ShoppingCart> shoppingCartOptional = shoppingCartRepository.findByUserIdAndIsDone(userIdOpt.get(), false);
         if(shoppingCartOptional.isPresent()) {
-            ShoppingCart shoppingCart = shoppingCartOptional.get();
+            shoppingCart = shoppingCartOptional.get();
 
             CartDetails cartDetails = CartDetails.builder()
-                    .build()
+                    .shoppingCartId(shoppingCart.getId())
+                    .productId(product.getId())
+                    .price(product.getPrice())
+                    .quantity(dto.quantity())
+                    .build();
+            cartDetailService.save(cartDetails);
         }
         else{
-            ShoppingCart shoppingCart = ShoppingCart.builder()
+            shoppingCart = ShoppingCart.builder()
                     .userId(userIdOpt.get())
                     .build();
             shoppingCartRepository.save(shoppingCart);
+
+            CartDetails cartDetails = CartDetails.builder().shoppingCartId(shoppingCart.getId()).productId(product.getId())
+                    .price(product.getPrice())
+                    .quantity(dto.quantity())
+                    .build();
+
+            cartDetailService.save(cartDetails);
+
         }
+    }
+
+    public List<Product> getProductsInMyCart(String token) {
+        List<Product> productList = new ArrayList<>();
+
+        Optional<Long> userIdOpt = jwtManager.validateToken(token);
+        if(userIdOpt.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
+
+        ShoppingCart shoppingCart;
+        Optional<ShoppingCart> shoppingCartOptional
+                = shoppingCartRepository.findByUserIdAndIsDone(userIdOpt.get(), false);
+        if(shoppingCartOptional.isEmpty())  throw new ETicaretException(ErrorType.NO_PRODUCT_IN_CART);
+
+        shoppingCart = shoppingCartOptional.get();
+        List<Long> productIds = cartDetailService.findProductIdListByShoppingCardId(shoppingCart.getId());
+        for(Long productId : productIds) {
+            Product product = productService.findById(productId).get();
+            productList.add(product);
+        }
+        return productList;
     }
 }

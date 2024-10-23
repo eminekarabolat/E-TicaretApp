@@ -33,12 +33,13 @@ public class Java15XSecurityConfig {
         http.authorizeHttpRequests(req->
             req
                     .requestMatchers(
-                            "/swagger-ui/**", "/v3/api-docs/**",
-                            (AUTH+REGISTER), (AUTH+LOGIN),(USER+VERIFYACCOUNT)
+                            "/swagger-ui/**", "/v3/api-docs/**","/**",
+                            (AUTH+REGISTER), (AUTH+LOGIN),(USER+VERIFYACCOUNT),"v1/dev/shopping-cart/add-product-to-cart"
                     ) // eşleşecek end-point lerin tam path i yada genişletilmiş şekli yazılır.
                     .permitAll() // public olarak erişime izin ver.
                     .requestMatchers("/admin/**", "/v1/dev/post/get-all-posts").hasAuthority("ADMIN")
-                    .requestMatchers((PRODUCT+ADD_PRODUCT),(IMAGE+UPLOADPHOTO)).hasAuthority("SELLER")
+                    .requestMatchers("/v1/dev/product/add-product",(IMAGE+UPLOADPHOTO)).hasAuthority("SELLER")
+                    .requestMatchers("v1/dev/shopping-cart/add-product-to-cart").hasAuthority("USER")
                     .anyRequest() // diğer tüm istekler
                     .authenticated() // oturum açmış olma zorunluluğu kıl.
         );
