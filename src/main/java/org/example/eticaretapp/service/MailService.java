@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.entity.Mail;
 import org.example.eticaretapp.entity.User;
 import org.example.eticaretapp.repository.MailRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class MailService {
 
     private final JavaMailSender mailSender;
     private final String fromAddress = "msacakk@gmail.com";
-    private final String url = "www.bombabomba.com";
+
 
     public SimpleMailMessage makeMessage() {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
@@ -30,10 +29,10 @@ public class MailService {
         return simpleMailMessage;
     }
 
-    public void sendVerificaitonMail(User user){
+    public void sendVerificationMail(String mailTo){
         String randomNum = UUID.randomUUID().toString();
         SimpleMailMessage smm = makeMessage();
-        smm.setTo(user.getEmail());
+        smm.setTo(mailTo);
         smm.setSubject("Üyelik doğrulama hk.");
         smm.setText("Üyeliğinizi doğrulamak için kodunuz: "+randomNum);
         try{
