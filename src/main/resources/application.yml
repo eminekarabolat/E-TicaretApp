@@ -12,8 +12,17 @@ spring:
       max-file-size: 8MB
       max-request-size: 8MB
   mail:
-    host: localhost
-    port: 25
+    host: smtp.gmail.com
+    port: 587
+    username: msacakk@gmail.com
+    password: xahi fsmm bzpu sejd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 
   datasource:
     driver-class-name: org.postgresql.Driver

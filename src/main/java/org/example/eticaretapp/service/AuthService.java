@@ -60,7 +60,7 @@ public class AuthService {
         Optional<User> optionalUser = userRepository.findOptionalByAuthId(optionalAuthUser.get().getId());
 
         if(!optionalUser.get().getIsVerified()){
-            mailService.sendVerificaitonMail(optionalUser.get());
+            mailService.sendVerificationMail(optionalUser.get());
             throw new ETicaretException(ErrorType.USER_NOT_VERIFIED);
         }
         String token = jwtManager.createToken(optionalUser.get().getId());
