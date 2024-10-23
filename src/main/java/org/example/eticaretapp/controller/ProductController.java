@@ -19,6 +19,7 @@ import org.example.eticaretapp.exception.ErrorType;
 import org.example.eticaretapp.service.CloudinaryService;
 import org.example.eticaretapp.service.ImageService;
 import org.example.eticaretapp.service.ProductService;
+import org.example.eticaretapp.utility.JwtManager;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;

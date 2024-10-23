@@ -65,17 +65,7 @@ public class ProductService {
 		 product.setStatus(dto.status());
 		productRepository.save(product);
 	}
-	
-	public void  addImageMyProduct(AddImageMyProductRequestDto dto){
-		Long sellerId = validateToken(dto.token());
-		Optional<Product> optProduct = productRepository.findById(dto.productId());
-		if (optProduct.isEmpty()) throw new ETicaretException(ErrorType.NOTFOUND_PRODUCT);
-		Product product = optProduct.get();
-		if(!product.getSellerId().equals(sellerId)) throw new ETicaretException(ErrorType.SELLER_PRODUCT_ERROR);
-		
-		imageService.save(dto);
-		
-	}
+
 	
 	public Long validateToken(String token) {
 		Optional<Long> sellerId = jwtManager.validateToken(token);

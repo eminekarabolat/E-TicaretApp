@@ -25,12 +25,6 @@ public class ImageController {
 	private final ImageService imageService;
 	private final CloudinaryService cloudinaryService;
 
-	@PostMapping(ADDIMAGE)
-	public ResponseEntity<BaseResponse<Boolean>> addImage(AddImageMyProductRequestDto dto){
-		imageService.save(dto);
-		return ResponseEntity.ok(BaseResponse.getSuccess(true, "resim kaydetme başarılı."));
-	}
-
 
 	@PostMapping(value = UPLOADPHOTO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> uploadPhotoByUrl(@RequestParam("file") MultipartFile file,

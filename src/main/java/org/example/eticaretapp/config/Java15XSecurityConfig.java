@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import static org.example.eticaretapp.constants.RestApis.*;
 
 @Configuration
 @Slf4j
@@ -33,10 +34,11 @@ public class Java15XSecurityConfig {
             req
                     .requestMatchers(
                             "/swagger-ui/**", "/v3/api-docs/**",
-                            "/v1/dev/user/register", "/v1/dev/user/dologin"
+                            (AUTH+REGISTER), (AUTH+LOGIN),(USER+VERIFYACCOUNT)
                     ) // eşleşecek end-point lerin tam path i yada genişletilmiş şekli yazılır.
                     .permitAll() // public olarak erişime izin ver.
-                    .requestMatchers("/admin/**", "/v1/dev/post/get-all-posts").hasAuthority("AHMETAMCA") // admin rolune sahip olmak
+                    .requestMatchers("/admin/**", "/v1/dev/post/get-all-posts").hasAuthority("ADMIN")
+                    .requestMatchers((PRODUCT+ADD_PRODUCT),(IMAGE+UPLOADPHOTO)).hasAuthority("SELLER")
                     .anyRequest() // diğer tüm istekler
                     .authenticated() // oturum açmış olma zorunluluğu kıl.
         );

@@ -7,19 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Data
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
+@Data
 @Entity
-@Table(name = "tblorderdetails")
-public class OrderDetails extends BaseEntity {
-
+@Table(name = "tblmail")
+public class Mail extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long orderId;
-    Long productId;
-    Integer quantity;
-    Double price;
+    private Long id;
+    private Long authId;
+    private String activationCode;
 }

@@ -6,27 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.example.eticaretapp.entity.enums.Role;
-
-import java.io.Serializable;
 
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tblauth")
-public class Auth extends BaseEntity{
+@Table(name = "tblshoppingcart")
+public class ShoppingCart extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(unique = true, nullable = false, length = 50)
-    String username;
-    String password;
-
-
-    @Enumerated(EnumType.STRING)
+    Long userId;
+    Double totalPrice;
     @Builder.Default
-    Role role = Role.USER;
+    boolean isDone = true;
+
+
+
 }
