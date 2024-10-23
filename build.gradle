@@ -35,10 +35,16 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
+
+
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
     implementation 'com.cloudinary:cloudinary-http44:1.29.0'
     implementation 'commons-io:commons-io:2.11.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+
     implementation 'org.springframework.boot:spring-boot-starter-mail:3.3.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

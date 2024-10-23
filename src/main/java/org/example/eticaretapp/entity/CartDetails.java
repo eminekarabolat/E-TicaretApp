@@ -12,13 +12,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tblorder")
-public class Order extends BaseEntity{
+@Table(name = "tblcartdetails")
+public class CartDetails extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long userId;
-    Double totalPrice;
-
+    Long shoppingCartId;
+    Long productId;
+    Integer quantity;
+    Double price;
 }

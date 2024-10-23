@@ -11,6 +11,9 @@ spring:
       enabled: true
       max-file-size: 8MB
       max-request-size: 8MB
+  mail:
+    host: localhost
+    port: 25
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -26,6 +29,8 @@ cloudinary:
   cloud_name: dhsdmojed
   api_key: 887528387778641
   api_secret: 0rSfOC2Rjjtf0qCHBKM1ucj9B-E
+
+
 
 
 

@@ -17,7 +17,8 @@ public enum ErrorType {
     SELLER_PRODUCT_ERROR(7002, "girilen urun, girilen satici tarafindan satilmiyor", HttpStatus.BAD_REQUEST),
     USERNAME_AND_EMAIL_ERROR(5004,"Kullanıcı adı ya da mail adresi daha önce kaydedilmiş. Lütfen tekrar deneyiniz...", HttpStatus.BAD_REQUEST)
     ,ACCESS_DENIED(6006, "admin olarak kayit yapamazsiniz!", HttpStatus.BAD_REQUEST)
-    ,IMAGE_SIZE_ERROR(6007, "Resmin boyutu 5 mb'dan fazla olamaz...", HttpStatus.BAD_REQUEST);
+    ,IMAGE_SIZE_ERROR(6007, "Resmin boyutu 5 mb'dan fazla olamaz...", HttpStatus.BAD_REQUEST)
+    ,USER_NOT_VERIFIED(6008,"Üyeliğinizi aktifleştirmeniz için mailinize aktivasyon kodu gönderildi.",HttpStatus.BAD_REQUEST);
 
     int code;
     String message;

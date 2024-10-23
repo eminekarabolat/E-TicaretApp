@@ -31,6 +31,8 @@ public class AuthService {
 
     @Autowired
     private AuthRepository authRepository;
+    @Autowired
+    private MailService mailService;
 
     public void register(@Valid RegisterRequestDto dto){
         if (dto.userRole().equals(Role.ADMIN)) throw new ETicaretException(ErrorType.ACCESS_DENIED);
@@ -52,7 +54,15 @@ public class AuthService {
                 !encryptionService.checkPassword(
                         authRequestDto.password(), optionalAuthUser.get().getPassword()))
             throw new ETicaretException(ErrorType.INVALID_USERNAME_OR_PASSWORD);
+
+
+
         Optional<User> optionalUser = userRepository.findOptionalByAuthId(optionalAuthUser.get().getId());
+
+        if(!optionalUser.get().getIsVerified()){
+            mailService.sendVerificaitonMail(optionalUser.get());
+            throw new ETicaretException(ErrorType.USER_NOT_VERIFIED);
+        }
         String token = jwtManager.createToken(optionalUser.get().getId());
         return token;
     }
@@ -60,4 +70,6 @@ public class AuthService {
     public Optional<Auth> findById(Long id){
         return authRepository.findById(id);
     }
+
+
 }

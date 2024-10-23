@@ -2,8 +2,10 @@ package org.example.eticaretapp.config;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.eticaretapp.entity.Auth;
 import org.example.eticaretapp.entity.User;
 import org.example.eticaretapp.entity.UserRole;
+import org.example.eticaretapp.service.AuthService;
 import org.example.eticaretapp.service.UserRoleService;
 import org.example.eticaretapp.service.UserService;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,24 +25,24 @@ public class JwtUserDetails implements UserDetailsService {
 
     private final UserService userService;
     private final UserRoleService userRoleService;
+    private final AuthService authService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
 
     public UserDetails getUserById(Long userId){
-        Optional<User> userOptional = userService.findById(userId);
-        if (userOptional.isEmpty()) return null;
+
+        Optional<Auth> authOptional = authService.findById(userId);
+        if (authOptional.isEmpty()) return null;
         List<GrantedAuthority> authorities = new ArrayList<>();
         List<UserRole> userRoles = userRoleService.getAllUserRoleByUserId(userId);
         userRoles.forEach(userRole -> authorities.add(new SimpleGrantedAuthority(userRole.getRole())));
-//        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-//        authorities.add(new SimpleGrantedAuthority("AHMET_AMCA_ROLU"));
-//        authorities.add(new SimpleGrantedAuthority("NASILSIN"));
-//        authorities.add(new SimpleGrantedAuthority("ADMIN"));
+
         return org.springframework.security.core.userdetails.User.builder()
-                .username(userOptional.get().getUserName())
-                .password(userOptional.get().getPassword())
+                .username(authOptional.get().getUsername())
+                .password(authOptional.get().getPassword())
                 .accountExpired(false)
                 .accountLocked(false)
                 .authorities(authorities)

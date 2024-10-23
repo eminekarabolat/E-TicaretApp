@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -36,6 +37,8 @@ public class User extends BaseEntity {
     String phone;
     String address;
     LocalDate birthdate;
+    @Builder.Default
+    Boolean isVerified = false;
 
     Long authId;
 }
