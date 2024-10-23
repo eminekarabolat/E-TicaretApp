@@ -72,4 +72,8 @@ public class ProductService {
 		if (sellerId.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
 		else return sellerId.get();
 	}
+
+	public Optional<Product> findById(Long id) {
+		return productRepository.findById(id);
+	}
 }

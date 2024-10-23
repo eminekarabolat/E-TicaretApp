@@ -18,7 +18,8 @@ public enum ErrorType {
     USERNAME_AND_EMAIL_ERROR(5004,"Kullanıcı adı ya da mail adresi daha önce kaydedilmiş. Lütfen tekrar deneyiniz...", HttpStatus.BAD_REQUEST)
     ,ACCESS_DENIED(6006, "admin olarak kayit yapamazsiniz!", HttpStatus.BAD_REQUEST)
     ,IMAGE_SIZE_ERROR(6007, "Resmin boyutu 5 mb'dan fazla olamaz...", HttpStatus.BAD_REQUEST)
-    ,USER_NOT_VERIFIED(6008,"Üyeliğinizi aktifleştirmeniz için mailinize aktivasyon kodu gönderildi.",HttpStatus.BAD_REQUEST);
+    ,USER_NOT_VERIFIED(6008,"Üyeliğinizi aktifleştirmeniz için mailinize aktivasyon kodu gönderildi.",HttpStatus.BAD_REQUEST)
+    ,NO_PRODUCT_IN_CART(6009,"Sepetinizde ürün bulunmamaktadır",HttpStatus.NOT_FOUND);
 
     int code;
     String message;

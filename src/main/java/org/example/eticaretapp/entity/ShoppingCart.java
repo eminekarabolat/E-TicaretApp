@@ -21,7 +21,7 @@ public class ShoppingCart extends BaseEntity{
     Long userId;
     Double totalPrice;
     @Builder.Default
-    boolean isDone = true;
+    boolean isDone = false;
 
 
 
