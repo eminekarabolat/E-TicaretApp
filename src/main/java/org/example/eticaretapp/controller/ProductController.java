@@ -12,6 +12,7 @@ import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.service.CloudinaryService;
 import org.example.eticaretapp.service.ImageService;
 import org.example.eticaretapp.service.ProductService;
+import org.example.eticaretapp.view.VwProducts;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,10 @@ public class ProductController {
         return ResponseEntity.ok(BaseResponse.getSuccess(true, "urun güncelleme başarılı."));
     }
 
-    public ResponseEntity<BaseResponse<List<Product>>> findProducts(@RequestBody @Valid FindProductRequestDto dto) {
+    public ResponseEntity<BaseResponse<List<VwProducts>>> findProducts(@RequestBody @Valid FindProductRequestDto dto) {
+       
+        return ResponseEntity.ok(BaseResponse.getSuccess( productService.findProducts(dto),"Ürünler başarıyla " +
+                "getirildi."))
     
     }
 

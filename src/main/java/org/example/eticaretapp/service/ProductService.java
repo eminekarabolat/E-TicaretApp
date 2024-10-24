@@ -3,6 +3,7 @@ package org.example.eticaretapp.service;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductDto;
 import org.example.eticaretapp.dto.request.DeleteProductDto;
+import org.example.eticaretapp.dto.request.FindProductRequestDto;
 import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
 import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.enums.State;
@@ -11,6 +12,7 @@ import org.example.eticaretapp.exception.ErrorType;
 import org.example.eticaretapp.mapper.ProductMapper;
 import org.example.eticaretapp.repository.ProductRepository;
 import org.example.eticaretapp.utility.JwtManager;
+import org.example.eticaretapp.view.VwProducts;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -69,5 +71,15 @@ public class ProductService {
 
 	public Optional<Product> findById(Long id) {
 		return productRepository.findById(id);
+	}
+	
+	//Belirtilen ürün tipinde belirtilmiş olan filtreli ürünler
+	public List<VwProducts> findProducts(FindProductRequestDto dto) {
+	
+	}
+	
+	//Bütün ürünlerde olan özelliklere göre filtreleme
+	public List<Long> filterProductsByGeneralProperty(){
+	
 	}
 }
