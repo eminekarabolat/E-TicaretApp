@@ -2,20 +2,15 @@ package org.example.eticaretapp.utility.data;
 
 import jakarta.annotation.PostConstruct;
 import org.example.eticaretapp.entity.Auth;
-import org.example.eticaretapp.entity.Product;
 import org.example.eticaretapp.entity.User;
 import org.example.eticaretapp.entity.UserRole;
-import org.example.eticaretapp.entity.enums.Category;
 import org.example.eticaretapp.entity.enums.Role;
-import org.example.eticaretapp.entity.enums.Status;
 import org.example.eticaretapp.repository.AuthRepository;
 import org.example.eticaretapp.repository.ProductRepository;
 import org.example.eticaretapp.repository.UserRepository;
 import org.example.eticaretapp.repository.UserRoleRepository;
 import org.example.eticaretapp.service.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -100,111 +95,7 @@ public class GenerateData {
 
     public void createProduct(){
 
-        Product product = Product.builder()
-                .category(Category.COMPUTER)
-                .brand("Casper")
-                .name("Casper Excalibur G870.1270-DFB0X-B")
-                .description("Performanslı bilgisayar")
-                .price(38_999D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product2 = Product.builder()
-                .category(Category.COMPUTER)
-                .brand("MSI")
-                .name("MSI CYBORG 15 A13VF-892XTR Intel Core i7 13620H ")
-                .description("Hızlı bilgisayar")
-                .price(44_999D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product3 = Product.builder()
-                .category(Category.COMPUTER)
-                .brand("Apple")
-                .name("MacBook Air M1 Çip 16GB 256GB SSD macOS 13\" Taşınabilir Bilgisayar Uzay Grisi Z1240009K")
-                .price(34_999D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product4 = Product.builder()
-                .category(Category.COMPUTER)
-                .brand("Apple")
-                .name("MacBook Air M3 Çip 8GB 256GB SSD macOS 13 Taşınabilir Bilgisayar Gece Yarısı MRXV3TU/A")
-                .price(45_999D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product5 = Product.builder()
-                .category(Category.GIRLS_FASHION)
-                .brand("Rayban")
-                .name("Rayban RB4187 622/8G Erkek Güneş Gözlüğü")
-                .description("Erkek Güneş Gözlüğü")
-                .price(4_550D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product6 = Product.builder()
-                .category(Category.COMPUTER)
-                .brand("Gucci")
-                .name("Gg 0340S 006 Güneş Gözlüğü")
-                .description("Kadın Güneş Gözlüğü")
-                .price(12_798D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product7 = Product.builder()
-                .category(Category.BOOKS)
-                .brand("İş Bankası")
-                .name(" Altıncı Koğuş - Anton Çehov")
-                .price(34_04D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product8 = Product.builder()
-                .category(Category.BOOKS)
-                .brand("İş Bankası")
-                .name("Otomatik Portakal - Anthony Burgess")
-                .price(54_0D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product9 = Product.builder()
-                .category(Category.BOYS_FASHION)
-                .brand("Casio")
-                .name("MTP-1374D-1AVDF Standart Erkek Kol Saati")
-                .price(2_600D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        Product product10 = Product.builder()
-                .category(Category.BOYS_FASHION)
-                .brand("Ferruci")
-                .name("Gümüş Çelik Erkek Kol Saati 3 Atm Su Geçirmez Paslanmaz")
-                .price(3_331D)
-                .stockQuantity(100)
-                .sellerId(2L)
-                .status(Status.ACTIVE)
-                .build();
-
-        productRepository.saveAll(List.of(product,product2,product3,product4,product5,product6,product7,product8,product9,product10));
+    
     }
 
 }

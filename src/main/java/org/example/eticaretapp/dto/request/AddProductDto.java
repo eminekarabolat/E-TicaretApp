@@ -2,12 +2,10 @@ package org.example.eticaretapp.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.example.eticaretapp.entity.enums.Category;
 import org.example.eticaretapp.entity.enums.Status;
 
 public record AddProductDto(
 		String token,
-        Category category,
 		String brand,
 		String name,
 		String description,

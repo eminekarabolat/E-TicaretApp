@@ -1,22 +1,16 @@
 package org.example.eticaretapp.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.eticaretapp.dto.request.AddImageMyProductRequestDto;
 import org.example.eticaretapp.dto.request.AddProductDto;
 import org.example.eticaretapp.dto.request.DeleteProductDto;
 import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
-import org.example.eticaretapp.entity.Image;
-import org.example.eticaretapp.entity.Product;
+import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.enums.State;
 import org.example.eticaretapp.exception.ETicaretException;
 import org.example.eticaretapp.exception.ErrorType;
-import org.example.eticaretapp.mapper.ImageMapper;
 import org.example.eticaretapp.mapper.ProductMapper;
-import org.example.eticaretapp.repository.ImageRepository;
 import org.example.eticaretapp.repository.ProductRepository;
 import org.example.eticaretapp.utility.JwtManager;
-import org.hibernate.validator.internal.constraintvalidators.hv.UUIDValidator;
-import org.springframework.boot.actuate.autoconfigure.metrics.data.RepositoryMetricsAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

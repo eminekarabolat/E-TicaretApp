@@ -1,10 +1,8 @@
 package org.example.eticaretapp.mapper;
 
 import org.example.eticaretapp.dto.request.AddProductDto;
-import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
-import org.example.eticaretapp.entity.Product;
+import org.example.eticaretapp.entity.products.Product;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 

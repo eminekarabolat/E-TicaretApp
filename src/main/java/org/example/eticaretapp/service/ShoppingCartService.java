@@ -3,7 +3,7 @@ package org.example.eticaretapp.service;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductToShoppingCartDto;
 import org.example.eticaretapp.entity.CartDetails;
-import org.example.eticaretapp.entity.Product;
+import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.ShoppingCart;
 import org.example.eticaretapp.exception.ETicaretException;
 import org.example.eticaretapp.exception.ErrorType;

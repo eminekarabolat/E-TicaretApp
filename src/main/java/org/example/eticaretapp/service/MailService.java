@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.entity.Mail;
 import org.example.eticaretapp.entity.User;
 import org.example.eticaretapp.repository.MailRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,8 @@ public class MailService {
 
 
     private final JavaMailSender mailSender;
-    private final String fromAddress = "msacakk@gmail.com";
+    @Value("${spring.mail.username}")
+    private String fromAddress;
 
 
     public SimpleMailMessage makeMessage() {
