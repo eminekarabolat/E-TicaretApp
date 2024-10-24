@@ -42,12 +42,11 @@ public class AuthController {
                 .build());
     }
 
-    @PostMapping("/test")
+    /*@PostMapping("/test")
     public String sendMailTest(String mail){
         User user = new User();
         mailService.sendVerificationMail(mail);
         return "Mail gönderdik.";
-    }
-
+    }*/
     
 }

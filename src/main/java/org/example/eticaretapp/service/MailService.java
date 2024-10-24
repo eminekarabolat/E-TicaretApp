@@ -29,10 +29,10 @@ public class MailService {
         return simpleMailMessage;
     }
 
-    public void sendVerificationMail(String mailTo){
+    public void sendVerificationMail(User user){
         String randomNum = UUID.randomUUID().toString();
         SimpleMailMessage smm = makeMessage();
-        smm.setTo(mailTo);
+        smm.setTo(user.getEmail());
         smm.setSubject("Üyelik doğrulama hk.");
         smm.setText("Üyeliğinizi doğrulamak için kodunuz: "+randomNum);
         try{
@@ -42,7 +42,6 @@ public class MailService {
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 
