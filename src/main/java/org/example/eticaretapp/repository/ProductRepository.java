@@ -1,6 +1,6 @@
 package org.example.eticaretapp.repository;
 
-import org.example.eticaretapp.entity.Product;
+import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.enums.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 

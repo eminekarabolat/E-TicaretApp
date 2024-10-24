@@ -4,7 +4,7 @@ package org.example.eticaretapp.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductToShoppingCartDto;
 import org.example.eticaretapp.dto.response.BaseResponse;
-import org.example.eticaretapp.entity.Product;
+import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.service.ShoppingCartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

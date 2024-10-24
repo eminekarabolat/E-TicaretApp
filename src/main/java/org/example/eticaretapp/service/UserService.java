@@ -5,10 +5,8 @@ import org.example.eticaretapp.entity.User;
 import org.example.eticaretapp.repository.AuthRepository;
 import org.example.eticaretapp.repository.UserRepository;
 import org.example.eticaretapp.utility.JwtManager;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
