@@ -1,5 +1,6 @@
 package org.example.eticaretapp.dto.request;
 
+import lombok.Builder;
 import org.example.eticaretapp.entity.enums.computer.ComputerType;
 import org.example.eticaretapp.entity.enums.computer.Harddisk;
 import org.example.eticaretapp.entity.enums.computer.Ram;
@@ -11,9 +12,16 @@ import org.example.eticaretapp.entity.enums.petProducts.AnimalType;
 import org.example.eticaretapp.entity.enums.petProducts.ProductType;
 import org.example.eticaretapp.entity.products.Computer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record FindProductRequestDto(
+		Class<?> clazz,
+		
+		Double minPrice,
+		Double maxPrice,
+		List<String> brand,
+		
 		List<Color> colorList,
 		List<FashionCategory> fashionCategories,
 		List<Gender> genderList,
@@ -22,7 +30,7 @@ public record FindProductRequestDto(
 		List<ProductType> productTypeList,
 		List<ComputerType> computerTypeList,
 		List<Harddisk> harddiskList,
-		List<Ram> ramList,
-		Class<?> clazz
-) {
+		List<Ram> ramList
+){
+	
 }

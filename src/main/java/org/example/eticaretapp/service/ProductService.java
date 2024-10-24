@@ -1,10 +1,9 @@
 package org.example.eticaretapp.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.eticaretapp.dto.request.AddProductDto;
-import org.example.eticaretapp.dto.request.DeleteProductDto;
-import org.example.eticaretapp.dto.request.FindProductRequestDto;
-import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
+import org.example.eticaretapp.dto.request.*;
+import org.example.eticaretapp.entity.products.Computer;
+import org.example.eticaretapp.entity.products.PetProduct;
 import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.enums.State;
 import org.example.eticaretapp.exception.ETicaretException;
@@ -15,6 +14,7 @@ import org.example.eticaretapp.utility.JwtManager;
 import org.example.eticaretapp.view.VwProducts;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +25,10 @@ public class ProductService {
 	private final ProductRepository productRepository;
 	private final JwtManager jwtManager;
 	private final ImageService imageService;
+	
+	private final ComputerService computerService;
+	private final PetProductService petProductService;
+	private final FashionService fashionService;
 	
 	public List<Product> listMyProducts(String token) {
 		Long sellerId = validateToken(token);
@@ -75,11 +79,21 @@ public class ProductService {
 	
 	//Belirtilen ürün tipinde belirtilmiş olan filtreli ürünler
 	public List<VwProducts> findProducts(FindProductRequestDto dto) {
-	
+		SimpleFindProductRequestDto simpleDto = ProductMapper.INSTANCE.fromGeneralToSimpleDto(dto);
+		List<Product> productList = filterProductsByGeneralProperty(simpleDto);
+		
+		if(dto.clazz() == Computer.class)
+			return computerService.findComputers(
+					ProductMapper.INSTANCE.fromGeneralToComputerDto(dto), productList);
+		
+		return null; //TODO hallet
 	}
 	
 	//Bütün ürünlerde olan özelliklere göre filtreleme
-	public List<Long> filterProductsByGeneralProperty(){
-	
+	public List<Product> filterProductsByGeneralProperty(SimpleFindProductRequestDto dto){
+		if (!dto.brand().isEmpty())
+			return productRepository.findAllByPriceBetweenAndBrandIn(dto.minPrice(), dto.maxPrice(), dto.brand());
+		else
+			return productRepository.findAllByPriceBetween(dto.minPrice(), dto.maxPrice());
 	}
 }

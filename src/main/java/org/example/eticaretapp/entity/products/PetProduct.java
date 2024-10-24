@@ -2,26 +2,23 @@ package org.example.eticaretapp.entity.products;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.example.eticaretapp.entity.enums.computer.ComputerType;
-import org.example.eticaretapp.entity.enums.computer.Harddisk;
-import org.example.eticaretapp.entity.enums.computer.Ram;
+import org.example.eticaretapp.entity.enums.petProducts.AnimalType;
+import org.example.eticaretapp.entity.enums.petProducts.ProductType;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 @Data
 @Entity
-@Table(name = "tblcomputer")
+@Table(name = "tblpetproduct")
 @PrimaryKeyJoinColumn(name = "id")
-public class Computer  extends  Product{
+public class PetProduct extends Product {
 	@Enumerated(EnumType.STRING)
-	ComputerType computerType;
+	AnimalType animalType;
 	@Enumerated(EnumType.STRING)
-	Harddisk harddisk;
-	@Enumerated(EnumType.STRING)
-	Ram ram;
+	ProductType productType;
+
 }

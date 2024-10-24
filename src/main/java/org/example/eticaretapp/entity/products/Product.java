@@ -16,6 +16,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "tblproduct")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Product extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

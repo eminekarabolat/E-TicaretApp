@@ -51,11 +51,14 @@ public class ProductController {
         productService.updateMyProduct(dto);
         return ResponseEntity.ok(BaseResponse.getSuccess(true, "urun güncelleme başarılı."));
     }
-
-    public ResponseEntity<BaseResponse<List<VwProducts>>> findProducts(@RequestBody @Valid FindProductRequestDto dto) {
+    
+    @PostMapping(FILTER)
+    public ResponseEntity<BaseResponse<List<VwProducts>>> findProducts(
+            @RequestBody @Valid FindProductRequestDto dto) {
        
-        return ResponseEntity.ok(BaseResponse.getSuccess( productService.findProducts(dto),"Ürünler başarıyla " +
-                "getirildi."))
+        return ResponseEntity.ok(BaseResponse.getSuccess(
+                productService.findProducts(dto),"Ürünler başarıyla " +
+                "getirildi."));
     
     }
 
