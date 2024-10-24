@@ -17,6 +17,7 @@ import org.example.eticaretapp.entity.enums.fashion.Size;
 @Data
 @Entity
 @Table(name = "tblfashion")
+@PrimaryKeyJoinColumn(name = "id")
 public class Fashion extends Product{
 	@Enumerated(EnumType.STRING)
 	FashionCategory fashionCategory;

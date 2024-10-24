@@ -30,4 +30,5 @@ public class RestApis {
     public static final String VERIFYACCOUNT = "/verify-account";
     public static final String ADDPRODUCT_TO_CART = "/add-product-to-cart";
     public static final String LISTPRODUCTS_INCART = "/list-products-in-cart";
+    public static final String FILTER = "/filter";
 }

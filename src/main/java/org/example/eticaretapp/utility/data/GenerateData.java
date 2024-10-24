@@ -31,7 +31,7 @@ public class GenerateData {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @PostConstruct
+    //@PostConstruct
    public void createData() {
 
         if(productRepository.findAll().isEmpty()){
