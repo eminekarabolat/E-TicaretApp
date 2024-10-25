@@ -1,8 +1,11 @@
 package org.example.eticaretapp.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.*;
+import org.example.eticaretapp.entity.Image;
 import org.example.eticaretapp.entity.products.Computer;
+import org.example.eticaretapp.entity.products.Fashion;
 import org.example.eticaretapp.entity.products.PetProduct;
 import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.enums.State;
@@ -11,6 +14,10 @@ import org.example.eticaretapp.exception.ErrorType;
 import org.example.eticaretapp.mapper.ProductMapper;
 import org.example.eticaretapp.repository.ProductRepository;
 import org.example.eticaretapp.utility.JwtManager;
+import org.example.eticaretapp.view.Product.VwComputer;
+import org.example.eticaretapp.view.Product.VwFashion;
+import org.example.eticaretapp.view.Product.VwPetProduct;
+import org.example.eticaretapp.view.VwProductDetail;
 import org.example.eticaretapp.view.VwProducts;
 import org.springframework.stereotype.Service;
 
@@ -81,13 +88,43 @@ public class ProductService {
 	public List<VwProducts> findProducts(FindProductRequestDto dto) {
 		SimpleFindProductRequestDto simpleDto = ProductMapper.INSTANCE.fromGeneralToSimpleDto(dto);
 		List<Product> productList = filterProductsByGeneralProperty(simpleDto);
-		
-		if(dto.clazz() == Computer.class)
-			return computerService.findComputers(
+
+
+		if(dto.clazz().equalsIgnoreCase("Computer")) {
+			List<VwProducts> productViewList = computerService.findComputers(
 					ProductMapper.INSTANCE.fromGeneralToComputerDto(dto), productList);
-		
-		return null; //TODO hallet
+
+			for (VwProducts vwProducts : productViewList) {
+				List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
+				vwProducts.setImageList(allByProductId);
+			}
+			return productViewList;
+
+		} else if (dto.clazz().equalsIgnoreCase("Fashion")) {
+			List<VwProducts> productViewList = fashionService.findFashion(
+					ProductMapper.INSTANCE.fromFindFashionDto(dto), productList);
+			for (VwProducts vwProducts : productViewList) {
+				List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
+				vwProducts.setImageList(allByProductId);
+			}
+			return productViewList;
+		}
+		else if (dto.clazz().equalsIgnoreCase("PetProduct")) {
+		  List<VwProducts> productViewList = petProductService.findPetProduct(
+				  ProductMapper.INSTANCE.fromFindPetDto(dto), productList);
+
+			for (VwProducts vwProducts : productViewList) {
+				List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
+				vwProducts.setImageList(allByProductId);
+			}
+			return productViewList;
+		}
+		else {
+			throw new ETicaretException(ErrorType.INVALID_PRODUCT_TYPE);
+		}
+
 	}
+
 	
 	//Bütün ürünlerde olan özelliklere göre filtreleme
 	public List<Product> filterProductsByGeneralProperty(SimpleFindProductRequestDto dto){
@@ -95,5 +132,24 @@ public class ProductService {
 			return productRepository.findAllByPriceBetweenAndBrandIn(dto.minPrice(), dto.maxPrice(), dto.brand());
 		else
 			return productRepository.findAllByPriceBetween(dto.minPrice(), dto.maxPrice());
+	}
+
+	public VwProductDetail findProductDetails(@Valid FindProductDetailRequestDto dto) {
+
+		if(dto.clazz().equalsIgnoreCase("Computer")) {
+			VwComputer vwComputer = computerService.findById(dto.productId());
+			return vwComputer;
+		}
+		else if (dto.clazz().equalsIgnoreCase("Fashion")) {
+		   VwFashion vwFashion = fashionService.findById(dto.productId());
+			return vwFashion;
+		}
+		else if (dto.clazz().equalsIgnoreCase("PetProduct")) {
+			VwPetProduct vwPetProduct =  petProductService.findById(dto.productId());
+			return vwPetProduct;
+		}
+		else {
+			throw new ETicaretException(ErrorType.NOTFOUND_PRODUCT);
+		}
 	}
 }

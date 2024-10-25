@@ -12,4 +12,6 @@ import java.util.List;
 public interface ComputerRepository extends JpaRepository<Computer, Long> {
 	// @Query("SELECT * FROM Computer c WHERE c.ram IN ?1 AND c.id...")
 	List<Computer> findAllByRamInAndHarddiskInAndComputerTypeInAndIdIn(List<Ram> rams, List<Harddisk> harddisks, List<ComputerType> computerTypes, List<Long> ids);
+
+
 }

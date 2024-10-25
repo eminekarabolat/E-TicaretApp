@@ -3,15 +3,13 @@ package org.example.eticaretapp.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-import org.example.eticaretapp.dto.request.AddProductDto;
-import org.example.eticaretapp.dto.request.DeleteProductDto;
-import org.example.eticaretapp.dto.request.FindProductRequestDto;
-import org.example.eticaretapp.dto.request.UpdateProductRequestDto;
+import org.example.eticaretapp.dto.request.*;
 import org.example.eticaretapp.dto.response.BaseResponse;
 import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.service.CloudinaryService;
 import org.example.eticaretapp.service.ImageService;
 import org.example.eticaretapp.service.ProductService;
+import org.example.eticaretapp.view.VwProductDetail;
 import org.example.eticaretapp.view.VwProducts;
 import org.springframework.http.ResponseEntity;
 
@@ -57,11 +55,14 @@ public class ProductController {
             @RequestBody @Valid FindProductRequestDto dto) {
        
         return ResponseEntity.ok(BaseResponse.getSuccess(
-                productService.findProducts(dto),"Ürünler başarıyla " +
-                "getirildi."));
+                productService.findProducts(dto),"Ürünler başarıyla getirildi."));
     
     }
 
-
+    @PostMapping("/product-detail")
+    public ResponseEntity<BaseResponse<VwProductDetail>> findProductDetail(@RequestBody @Valid FindProductDetailRequestDto dto){
+        return ResponseEntity.ok(BaseResponse.getSuccess(
+                productService.findProductDetails(dto),"Ürün detayı başarı ile getirildi."));
+    }
 
 }

@@ -18,8 +18,6 @@ public class MailService {
 
     private final MailRepository mailRepository;
 
-
-
     private final JavaMailSender mailSender;
     @Value("${spring.mail.username}")
     private String fromAddress;

@@ -1,10 +1,11 @@
 package org.example.eticaretapp.mapper;
 
-import org.example.eticaretapp.dto.request.AddProductDto;
-import org.example.eticaretapp.dto.request.FindComputerRequestDto;
-import org.example.eticaretapp.dto.request.FindProductRequestDto;
-import org.example.eticaretapp.dto.request.SimpleFindProductRequestDto;
+import org.example.eticaretapp.dto.request.*;
+import org.example.eticaretapp.entity.products.Computer;
+import org.example.eticaretapp.entity.products.Fashion;
+import org.example.eticaretapp.entity.products.PetProduct;
 import org.example.eticaretapp.entity.products.Product;
+import org.example.eticaretapp.view.VwProducts;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -26,4 +27,21 @@ public interface ProductMapper {
 	@Mapping(target = "harddiskList", defaultExpression = "java(new ArrayList<>(List.of(Harddisk.values())))")
 	@Mapping(target = "ramList", defaultExpression = "java(new ArrayList<>(List.of(Ram.values())))")
 	FindComputerRequestDto fromGeneralToComputerDto(FindProductRequestDto dto);
+
+	VwProducts fromFindComputerRequestDto(Computer computer);
+
+	@Mapping(target = "fashionCategoryList", defaultExpression = "java(new ArrayList<>(List.of(FashionCategory.values())))")
+	@Mapping(target = "colorList", defaultExpression = "java(new ArrayList<>(List.of(Color.values())))")
+	@Mapping(target = "genderList", defaultExpression = "java(new ArrayList<>(List.of(Gender.values())))")
+	@Mapping(target = "sizeList", defaultExpression = "java(new ArrayList<>(List.of(Size.values())))")
+	FindFashionRequestDto fromFindFashionDto(FindProductRequestDto dto);
+
+	VwProducts fromFindFashionRequestDto(Fashion fashion);
+
+	@Mapping(target = "animalTypeList", defaultExpression = "java(new ArrayList<>(List.of(AnimalType.values())))")
+	@Mapping(target = "productTypeList", defaultExpression = "java(new ArrayList<>(List.of(ProductType.values())))")
+	FindPetProductRequestDto fromFindPetDto(FindProductRequestDto dto);
+
+	VwProducts fromFindPetProductRequestDto(PetProduct petProduct);
+
 }

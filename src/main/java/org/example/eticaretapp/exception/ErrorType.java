@@ -19,7 +19,12 @@ public enum ErrorType {
     ,ACCESS_DENIED(6006, "admin olarak kayit yapamazsiniz!", HttpStatus.BAD_REQUEST)
     ,IMAGE_SIZE_ERROR(6007, "Resmin boyutu 5 mb'dan fazla olamaz...", HttpStatus.BAD_REQUEST)
     ,USER_NOT_VERIFIED(6008,"Üyeliğinizi aktifleştirmeniz için mailinize aktivasyon kodu gönderildi.",HttpStatus.BAD_REQUEST)
-    ,NO_PRODUCT_IN_CART(6009,"Sepetinizde ürün bulunmamaktadır",HttpStatus.NOT_FOUND);
+    ,NO_PRODUCT_IN_CART(6009,"Sepetinizde ürün bulunmamaktadır",HttpStatus.NOT_FOUND)
+    ,INVALID_PRODUCT_TYPE(6010,"Girdiğiniz filtreye ait ürün bulunamamaktadır.",HttpStatus.BAD_REQUEST)
+    ,NOTFOUND_COMPUTER(7003,"Computer bulunamadı...", HttpStatus.NOT_FOUND)
+    , NOTFOUND_FASHION(7004,"Fashıon bulunamadı...", HttpStatus.NOT_FOUND)
+    , NOTFOUND_PETPRODUCT(7005,"Pet bulunamadı...", HttpStatus.NOT_FOUND);
+
 
     int code;
     String message;

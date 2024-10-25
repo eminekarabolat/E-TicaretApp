@@ -36,4 +36,8 @@ public class ImageService {
 	public List<Image> findAll(){
 		return imageRepository.findAll();
 	}
+
+	public List<Image> findAllByProductId(Long id) {
+		return imageRepository.findAllByProductId(id);
+	}
 }
