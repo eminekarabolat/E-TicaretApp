@@ -3,6 +3,7 @@ package org.example.eticaretapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductToShoppingCartDto;
+import org.example.eticaretapp.dto.request.FinishShoppingDto;
 import org.example.eticaretapp.dto.response.BaseResponse;
 import org.example.eticaretapp.entity.ShoppingCart;
 import org.example.eticaretapp.entity.products.Product;
@@ -51,4 +52,9 @@ public class ShoppingCartController {
         return ResponseEntity.ok(BaseResponse.getSuccess(true, "Ürün sepetinizden silindi"));
     }
     
+    @PostMapping(FINISH_SHOPPING)
+    public ResponseEntity<BaseResponse<Boolean>> finishShopping(FinishShoppingDto dto){
+        shoppingCartService.finishShopping(dto);
+        return ResponseEntity.ok(BaseResponse.getSuccess(true, "Alisveris basariyla gerceklestirildi"));
+    }
 }

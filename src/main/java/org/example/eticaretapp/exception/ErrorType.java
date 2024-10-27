@@ -25,6 +25,7 @@ public enum ErrorType {
     , NOTFOUND_FASHION(7004,"Fashıon bulunamadı...", HttpStatus.NOT_FOUND)
     , NOTFOUND_PETPRODUCT(7005,"Pet bulunamadı...", HttpStatus.NOT_FOUND)
     , ITEM_NOT_IN_CART(8003, "belirttiğiniz ürün zaten sepette değil", HttpStatus.BAD_REQUEST)
+    , NO_AVAILABLE_CART(8004, "sepetiniz bos oldugu icin urun satin alamiyorsunuz", HttpStatus.BAD_REQUEST)
     ;
 
     int code;

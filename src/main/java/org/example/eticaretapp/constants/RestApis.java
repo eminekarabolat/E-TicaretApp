@@ -32,4 +32,5 @@ public class RestApis {
     public static final String LISTPRODUCTS_INCART = "/list-products-in-cart";
     public static final String FILTER = "/filter";
     public static final String LIST_OLD_CARTS = "/list-old-carts";
+    public static final String FINISH_SHOPPING = "/finish-shopping";
 }
