@@ -23,8 +23,9 @@ public enum ErrorType {
     ,INVALID_PRODUCT_TYPE(6010,"Girdiğiniz filtreye ait ürün bulunamamaktadır.",HttpStatus.BAD_REQUEST)
     ,NOTFOUND_COMPUTER(7003,"Computer bulunamadı...", HttpStatus.NOT_FOUND)
     , NOTFOUND_FASHION(7004,"Fashıon bulunamadı...", HttpStatus.NOT_FOUND)
-    , NOTFOUND_PETPRODUCT(7005,"Pet bulunamadı...", HttpStatus.NOT_FOUND);
-
+    , NOTFOUND_PETPRODUCT(7005,"Pet bulunamadı...", HttpStatus.NOT_FOUND)
+    , ITEM_NOT_IN_CART(8003, "belirttiğiniz ürün zaten sepette değil", HttpStatus.BAD_REQUEST)
+    ;
 
     int code;
     String message;
