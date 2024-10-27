@@ -29,23 +29,8 @@ public class ImageController {
 	@PostMapping(value = UPLOADPHOTO, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> uploadPhotoByUrl(@RequestParam("file") MultipartFile file,
 												   @RequestParam("productId") Long productId) throws IOException {
-
-		// Dosya boyutunu kontrol et
-		if (file.getSize() > 5 * 1024 * 1024) {
-			throw new ETicaretException(ErrorType.IMAGE_SIZE_ERROR);
-		}
-
-		// Dosyayı byte array'e çevir
-		byte[] imageBytes = file.getBytes();
-
-		// Cloudinary veya başka bir servise resmi yükle
-		Map uploadResult = cloudinaryService.uploadImage(imageBytes);
-
-		// Yüklenen resmin URL'sini al
-		String uploadedImageUrl = uploadResult.get("url").toString();
-
-		// Image sınıfında productId ile kaydet
-		imageService.saveImage(productId, uploadedImageUrl);
+		
+		String uploadedImageUrl = imageService.saveImage(productId, file);
 
 		return ResponseEntity.ok("Resim başarıyla yüklendi. URL: " + uploadedImageUrl);
 

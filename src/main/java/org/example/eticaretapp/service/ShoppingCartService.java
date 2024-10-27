@@ -2,6 +2,7 @@ package org.example.eticaretapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductToShoppingCartDto;
+import org.example.eticaretapp.dto.request.FinishShoppingDto;
 import org.example.eticaretapp.entity.CartDetails;
 import org.example.eticaretapp.entity.products.Product;
 import org.example.eticaretapp.entity.ShoppingCart;
@@ -23,6 +24,7 @@ public class ShoppingCartService {
     private final CartDetailService cartDetailService;
     private final JwtManager jwtManager;
     private final ProductService productService;
+    private final PaymentService paymentService = new PaymentService();
 
 // TODO el at
     public void addProductToShoppingCart(AddProductToShoppingCartDto dto) {
@@ -95,5 +97,29 @@ public class ShoppingCartService {
         
         shoppingCart.setTotalPrice(shoppingCart.getTotalPrice() - product.getPrice() * removedQuantity);
         shoppingCartRepository.save(shoppingCart);
+    }
+    
+    public boolean finishShopping(FinishShoppingDto dto) {
+        Optional<Long> userIdOpt = jwtManager.validateToken(dto.token());
+        if(userIdOpt.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
+        
+        
+        List<ShoppingCart> resultList
+            = shoppingCartRepository.findByUserIdAndIsDone(userIdOpt.get(), false);
+        
+        if (!resultList.isEmpty()){
+            ShoppingCart currentCart = resultList.get(0);
+            List<Long> productList =
+                    cartDetailService.findProductIdListByShoppingCardId(currentCart.getId());
+            if (!productList.isEmpty()){
+                // ödemede sıkıntı çıkarsa setDone çalışmayacak ve hâlâ false kalacak
+                paymentService.pay(userIdOpt.get(), dto.paymentMethod());
+                currentCart.setDone(true);
+                shoppingCartRepository.save(currentCart);
+                return true;
+            }
+        }
+        throw new ETicaretException(ErrorType.NO_AVAILABLE_CART);
+        
     }
 }
