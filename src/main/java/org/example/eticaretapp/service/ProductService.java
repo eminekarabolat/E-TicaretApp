@@ -84,50 +84,42 @@ public class ProductService {
 		return productRepository.findById(id);
 	}
 	
-	//Belirtilen ürün tipinde belirtilmiş olan filtreli ürünler
+	
 	public List<VwProducts> findProducts(FindProductRequestDto dto) {
 		SimpleFindProductRequestDto simpleDto = ProductMapper.INSTANCE.fromGeneralToSimpleDto(dto);
-		List<Product> productList = filterProductsByGeneralProperty(simpleDto);
-
-
-		if(dto.clazz().equalsIgnoreCase("Computer")) {
-			List<VwProducts> productViewList = computerService.findComputers(
+		List<Long> productList = filterProductsByGeneralProperty(simpleDto);
+		List<VwProducts> productViewList;
+		
+		switch (dto.clazz().toLowerCase()){
+			case "computer":
+				productViewList = computerService.findComputers(
 					ProductMapper.INSTANCE.fromGeneralToComputerDto(dto), productList);
-
-			for (VwProducts vwProducts : productViewList) {
-				List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
-				vwProducts.setImageList(allByProductId);
-			}
-			return productViewList;
-
-		} else if (dto.clazz().equalsIgnoreCase("Fashion")) {
-			List<VwProducts> productViewList = fashionService.findFashion(
-					ProductMapper.INSTANCE.fromFindFashionDto(dto), productList);
-			for (VwProducts vwProducts : productViewList) {
-				List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
-				vwProducts.setImageList(allByProductId);
-			}
-			return productViewList;
+				break;
+			case "fashion":
+				productViewList = fashionService.findFashion(
+						ProductMapper.INSTANCE.fromFindFashionDto(dto), productList);
+				break;
+			case "petproduct":
+				productViewList = petProductService.findPetProduct(
+						ProductMapper.INSTANCE.fromFindPetDto(dto), productList);
+				break;
+			default:
+				throw new ETicaretException(ErrorType.INVALID_PRODUCT_TYPE);
 		}
-		else if (dto.clazz().equalsIgnoreCase("PetProduct")) {
-		  List<VwProducts> productViewList = petProductService.findPetProduct(
-				  ProductMapper.INSTANCE.fromFindPetDto(dto), productList);
-
-			for (VwProducts vwProducts : productViewList) {
-				List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
-				vwProducts.setImageList(allByProductId);
-			}
-			return productViewList;
-		}
-		else {
-			throw new ETicaretException(ErrorType.INVALID_PRODUCT_TYPE);
-		}
-
+		getImagesOfProductList(productViewList);
+		return productViewList;
 	}
-
+	
+	private void getImagesOfProductList(List<VwProducts> productViewList) {
+		for (VwProducts vwProducts : productViewList) {
+			List<Image> allByProductId = imageService.findAllByProductId(vwProducts.getId());
+			vwProducts.setImageList(allByProductId);
+		}
+	}
+	
 	
 	//Bütün ürünlerde olan özelliklere göre filtreleme
-	public List<Product> filterProductsByGeneralProperty(SimpleFindProductRequestDto dto){
+	public List<Long> filterProductsByGeneralProperty(SimpleFindProductRequestDto dto){
 		if (!dto.brand().isEmpty())
 			return productRepository.findAllByPriceBetweenAndBrandIn(dto.minPrice(), dto.maxPrice(), dto.brand());
 		else

@@ -4,7 +4,9 @@ package org.example.eticaretapp.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.eticaretapp.dto.request.AddProductToShoppingCartDto;
 import org.example.eticaretapp.dto.response.BaseResponse;
+import org.example.eticaretapp.entity.ShoppingCart;
 import org.example.eticaretapp.entity.products.Product;
+import org.example.eticaretapp.exception.ErrorType;
 import org.example.eticaretapp.service.ShoppingCartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,5 +37,11 @@ public class ShoppingCartController {
         return ResponseEntity.ok(BaseResponse.getSuccess(myProductsInCart, "Sepetteki ürünler"));
     }
 
-
+    @PostMapping(LIST_OLD_CARTS)
+    public ResponseEntity<BaseResponse<List<ShoppingCart>>> showOldCarts(String token){
+        return ResponseEntity.ok(
+                BaseResponse.getSuccess(shoppingCartService.showOldCarts(token),
+                                        "Eski sepetler getirildi"));
+        
+    }
 }

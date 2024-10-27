@@ -54,9 +54,7 @@ public class AuthService {
                 !encryptionService.checkPassword(
                         authRequestDto.password(), optionalAuthUser.get().getPassword()))
             throw new ETicaretException(ErrorType.INVALID_USERNAME_OR_PASSWORD);
-
-
-
+        
         Optional<User> optionalUser = userRepository.findOptionalByAuthId(optionalAuthUser.get().getId());
 
         if(!optionalUser.get().getIsVerified()){
