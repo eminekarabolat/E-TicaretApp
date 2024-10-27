@@ -19,7 +19,8 @@ public class ShoppingCart extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Long userId;
-    Double totalPrice;
+    @Builder.Default
+    Double totalPrice = 0.;
     @Builder.Default
     boolean isDone = false;
 
