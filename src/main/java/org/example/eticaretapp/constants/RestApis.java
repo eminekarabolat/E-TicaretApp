@@ -29,6 +29,7 @@ public class RestApis {
     public static final String UPLOADPHOTO = "/upload-photo";
     public static final String VERIFYACCOUNT = "/verify-account";
     public static final String ADDPRODUCT_TO_CART = "/add-product-to-cart";
+    public static final String DELETEPRODUCT_TO_CART = "/delete-product-to-cart";
     public static final String LISTPRODUCTS_INCART = "/list-products-in-cart";
     public static final String FILTER = "/filter";
     public static final String LIST_OLD_CARTS = "/list-old-carts";

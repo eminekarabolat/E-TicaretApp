@@ -46,7 +46,7 @@ public class ShoppingCartController {
         
     }
     
-    @PostMapping(ADDPRODUCT_TO_CART)
+    @PostMapping(DELETEPRODUCT_TO_CART)
     public ResponseEntity<BaseResponse<Boolean>> deleteProductFromShoppingCart(AddProductToShoppingCartDto dto){
         shoppingCartService.deleteProductFromShoppingCart(dto);
         return ResponseEntity.ok(BaseResponse.getSuccess(true, "Ürün sepetinizden silindi"));
