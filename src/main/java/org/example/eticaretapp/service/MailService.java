@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
+import static org.example.eticaretapp.constants.RestApis.*;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class MailService {
-
+   
     private final MailRepository mailRepository;
 
     private final JavaMailSender mailSender;
@@ -34,7 +34,7 @@ public class MailService {
         SimpleMailMessage smm = makeMessage();
         smm.setTo(user.getEmail());
         smm.setSubject("Üyelik doğrulama hk.");
-        smm.setText("Üyeliğinizi doğrulamak için kodunuz: "+randomNum);
+        smm.setText("Üyeliğinizi doğrulamak için şu kodu giriniz: " + randomNum);
         try{
             Mail mail = Mail.builder().authId(user.getAuthId()).activationCode(randomNum).build();
             mailRepository.save(mail);

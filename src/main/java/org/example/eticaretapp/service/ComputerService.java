@@ -24,8 +24,7 @@ public class ComputerService {
 	private final ComputerRepository computerRepository;
 	
 	public List<VwProducts> findComputers(FindComputerRequestDto dto,
-	                                      List<Product> productList) {
-		List<Long> ids = productList.stream().map(product -> product.getId()).toList();
+	                                      List<Long> ids) {
 		List<Computer> computers = computerRepository
 				.findAllByRamInAndHarddiskInAndComputerTypeInAndIdIn(dto.ramList()
 				, dto.harddiskList(), dto.computerTypeList(), ids);

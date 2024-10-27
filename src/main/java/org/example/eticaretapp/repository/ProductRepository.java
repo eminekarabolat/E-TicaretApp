@@ -13,9 +13,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	List<Product> findBySellerIdAndState(Long sellerId, State state);
 	
-	List<Product> findAllByPriceBetweenAndBrandIn(Double minPrice, Double maxPrice, List<String> brand);
+	@Query("SELECT p.id FROM Product p WHERE p.brand IN ?3 AND p.price BETWEEN ?1 AND ?2")
+	List<Long> findAllByPriceBetweenAndBrandIn(Double minPrice, Double maxPrice, List<String> brand);
 	
-	List<Product> findAllByPriceBetween(Double minPrice, Double maxPrice);
+	@Query("SELECT p.id FROM Product p WHERE p.price BETWEEN ?1 AND ?2")
+	List<Long> findAllByPriceBetween(Double minPrice, Double maxPrice);
 	
 	
 }

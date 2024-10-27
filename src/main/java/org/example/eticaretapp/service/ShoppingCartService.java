@@ -24,7 +24,7 @@ public class ShoppingCartService {
     private final JwtManager jwtManager;
     private final ProductService productService;
 
-
+// TODO el at
     public void addProductToShoppingCart(AddProductToShoppingCartDto dto) {
         ShoppingCart shoppingCart;
         Optional<Long> userIdOpt = jwtManager.validateToken(dto.token());
@@ -68,18 +68,22 @@ public class ShoppingCartService {
 
         Optional<Long> userIdOpt = jwtManager.validateToken(token);
         if(userIdOpt.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
-
-        ShoppingCart shoppingCart;
-        Optional<ShoppingCart> shoppingCartOptional
-                = shoppingCartRepository.findByUserIdAndIsDone(userIdOpt.get(), false);
-        if(shoppingCartOptional.isEmpty())  throw new ETicaretException(ErrorType.NO_PRODUCT_IN_CART);
-
-        shoppingCart = shoppingCartOptional.get();
+        
+        ShoppingCart shoppingCart
+                = shoppingCartRepository.findByUserIdAndIsDone(userIdOpt.get(), false).get(0);
+       
         List<Long> productIds = cartDetailService.findProductIdListByShoppingCardId(shoppingCart.getId());
         for(Long productId : productIds) {
             Product product = productService.findById(productId).get();
             productList.add(product);
         }
         return productList;
+    }
+    
+    public List<ShoppingCart> showOldCarts(String token){
+        Optional<Long> userIdOpt = jwtManager.validateToken(token);
+        if(userIdOpt.isEmpty()) throw new ETicaretException(ErrorType.INVALID_TOKEN);
+        
+        return shoppingCartRepository.findByUserIdAndIsDone(userIdOpt.get(), true);
     }
 }

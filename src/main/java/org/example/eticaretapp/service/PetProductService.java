@@ -22,8 +22,7 @@ import java.util.Optional;
 public class PetProductService {
     private final PetProductRepository petProductRepository;
 
-    public List<VwProducts> findPetProduct(FindPetProductRequestDto dto, List<Product> productList) {
-        List<Long> ids = productList.stream().map(product -> product.getId()).toList();
+    public List<VwProducts> findPetProduct(FindPetProductRequestDto dto, List<Long> ids) {
         List<PetProduct> petProductList = petProductRepository
                 .findAllByAnimalTypeInAndProductTypeInAndIdIn(dto.animalTypeList()
                         , dto.productTypeList(),ids);

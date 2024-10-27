@@ -24,8 +24,7 @@ public class FashionService {
     private final FashionRepository fashionRepository;
     private final ProductRepository productRepository;
 
-    public List<VwProducts> findFashion(FindFashionRequestDto dto, List<Product> productList) {
-        List<Long> ids = productList.stream().map(product -> product.getId()).toList();
+    public List<VwProducts> findFashion(FindFashionRequestDto dto, List<Long> ids) {
         List<Fashion> fashionList = fashionRepository
                 .findAllByGenderInAndColorInAndFashionCategoryInAndSizeInAndIdIn(dto.genderList()
                         , dto.colorList(), dto.fashionCategoryList(), dto.sizeList(),ids);

@@ -34,7 +34,7 @@ public class GenerateData {
     @Autowired
     private ComputerRepository computerRepository;
 
-  // @PostConstruct
+   @PostConstruct
     public void createData() {
 
         if (productRepository.findAll().isEmpty()) {
@@ -86,7 +86,7 @@ public class GenerateData {
         User user2 = User.builder()
                 .name("Ayşe")
                 .surname("Çolak")
-                .email("ayse.colak@gmail.com")
+                .email("evrim998@gmail.com")
                 .phone("05559876541")
                 .address("Elazığ")
                 .birthdate(LocalDate.of(2005, 7, 25))
